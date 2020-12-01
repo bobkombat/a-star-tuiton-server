@@ -5,6 +5,6 @@ const authentication = require("../middlewares/authentication");
 router.get("/all", LeaderboardController.getAll);
 
 router.use(authentication);
-router.get("/view-detail", LeaderboardController.getOneUser);
+router.get("/detail", LeaderboardController.getOneUser);
 
 module.exports = router;

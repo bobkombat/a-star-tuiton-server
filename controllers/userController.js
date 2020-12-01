@@ -52,7 +52,6 @@ class UserController {
         return res.status(201).json({
           id: response.id,
           email: response.email,
-          password: response.password,
         });
       })
       .catch((err) => next(err));

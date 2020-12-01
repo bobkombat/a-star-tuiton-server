@@ -17,6 +17,8 @@ app.use(router);
 app.use(errorHandler);
 
 if (process.env.NODE_ENV != "test")
-  app.listen(PORT, () => console.log(`listening at port ${PORT}`));
+  app.listen(PORT, () =>
+    console.log(`Starting local server listening at port http://localhost:${PORT}`)
+  );
 
 module.exports = app;
