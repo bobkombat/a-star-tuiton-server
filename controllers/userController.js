@@ -4,6 +4,7 @@ const { User } = require("../models");
 
 class UserController {
   static login(req, res, next) {
+    console.log(req.body);
     if (!req.body.email)
       return next({ statusMessage: "NOT_FOUND", errorMessage: "DATA USER IS NOT FOUND" });
     if (!req.body.password)
@@ -13,7 +14,6 @@ class UserController {
       .then((data) => {
         if (!data)
           return next({ statusMessage: "NOT_FOUND", errorMessage: "DATA USER IS NOT FOUND" });
-
         if (bcrypt.compareSync(req.body.password, data.password)) {
           const access_token = jwt.sign(
             {
@@ -23,7 +23,7 @@ class UserController {
             },
             process.env.JWT_SECRET
           );
-          return res.status(200).json({ access_token });
+          return res.status(200).json({ access_token, username: data.username, id: data.id });
         }
         return next({
           statusMessage: "INVALID_ACCOUNT",
@@ -36,6 +36,7 @@ class UserController {
   static register(req, res, next) {
     const userData = {
       email: req.body.email,
+      username: req.body.username,
       password: req.body.password,
     };
 
@@ -50,8 +51,8 @@ class UserController {
       })
       .then((response) => {
         return res.status(201).json({
-          id: response.id,
           email: response.email,
+          username: response.username,
         });
       })
       .catch((err) => next(err));

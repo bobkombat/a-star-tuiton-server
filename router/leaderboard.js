@@ -6,5 +6,6 @@ router.get("/all", LeaderboardController.getAll);
 
 router.use(authentication);
 router.get("/detail", LeaderboardController.getOneUser);
+router.post("/create", LeaderboardController.createNewData);
 
 module.exports = router;
